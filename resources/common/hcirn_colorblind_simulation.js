@@ -19,7 +19,6 @@ Use the fBlind[] in order to convert. For instance: fBlind['Tritanomaly'](RGB) w
 		contact the Human-Computer Interaction Resource Network ( http://hcirn.com/ ).
 
 */
-console.log('hcirn_colorblind script')
 
 var rBlind = {
 	protan: { cpu: 0.735, cpv: 0.265, am: 1.273463, ayi: -0.073894 },

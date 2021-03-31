@@ -14,7 +14,7 @@ http://www.nofunc.com/Color_Blindness_Library/ — It uses "confusion lines" wit
 
 There are a few other methods, and no one really knows exactly what it would look like... these are all generalizations of a small sample, set against the masses.
 */
-var ColorMatrixMatrixes = {
+const ColorMatrixMatrixes = {
 	Normal: {
 		R: [100, 0, 0],
 		G: [0, 100, 0],
@@ -62,6 +62,8 @@ var ColorMatrixMatrixes = {
 	}
 };
 
+const imageCache = {}, urlCache = {}, colorMatrixFilterFunctions = {};
+
 function matrixFunction(matrix) {
 	return function (rgb) {
 		var r = rgb[0];
@@ -75,83 +77,14 @@ function matrixFunction(matrix) {
 	};
 }
 
-var colorMatrixFilterFunctions = {};
-for (var t in ColorMatrixMatrixes) {
+for (let t in ColorMatrixMatrixes) {
 	if (ColorMatrixMatrixes.hasOwnProperty(t)) {
 		colorMatrixFilterFunctions[t] = matrixFunction(ColorMatrixMatrixes[t]);
 	}
 }
 
-var imageCache = {};
-var urlCache = {};
-window.clearImageCache = () => {
-	imageCache = {};
-	urlCache = {};
-}
-
-window.getFilteredImage = (img, type, callback) => {
-	if (type in imageCache) {
-		callback(imageCache[type], urlCache[type]);
-	} else {
-		if (type === 'simplNormal') {
-			imageCache[type] = img;
-			urlCache[type] = '#';
-			callback(img, '#');
-		} else {
-			createFilteredImage(img, type, function (filtered, url) {
-				imageCache[type] = filtered;
-				urlCache[type] = url;
-				callback(filtered, url);
-			});
-		}
-	}
-}
-
-function createFilteredImage(img, type, callback) {
-	var filterFunction = getFilterFunction(type);
-	var canvas = document.createElement('canvas');
-	var w = img.naturalWidth;
-	var h = img.naturalHeight;
-	canvas.setAttribute('width', w);
-	canvas.setAttribute('height', h);
-	var ctx = canvas.getContext('2d');
-	ctx.drawImage(img, 0, 0);
-	var pixels = ctx.getImageData(0, 0, w, h);
-
-	// Split the work into 5 chunks
-	var chunkSize = Math.max(Math.floor(pixels.data.length / 5), 1);
-	var i = 0;
-	// Chain of setTimeout-calls, so the progressbar can render.
-	setTimeout(function doWork() {
-		var chunkEnd = Math.min(i + chunkSize, pixels.data.length);
-		for (; i < chunkEnd; i += 4) {
-			var rgb = [pixels.data[i], pixels.data[i + 1], pixels.data[i + 2]];
-			filteredRGB = filterFunction(rgb);
-			pixels.data[i] = filteredRGB[0];
-			pixels.data[i + 1] = filteredRGB[1];
-			pixels.data[i + 2] = filteredRGB[2];
-		}
-		// 20% is loading the image
-		NProgress.set(0.2 + 0.8 * (i / pixels.data.length));
-		if (i < pixels.data.length) {
-			setTimeout(doWork, 0); // Self reference
-		} else {
-			// Work is done
-			ctx.putImageData(pixels, 0, 0);
-			var url = canvas.toDataURL();
-			console.log(url);
-			var filteredImage = new Image();
-			filteredImage.onload = function () {
-				callback(this, url);
-			};
-			filteredImage.src = url;
-		}
-	}, 0);
-
-}
-
 function getFilterFunction(type) {
-	var lib = colorMatrixFilterFunctions;
+	const lib = colorMatrixFilterFunctions;
 	type = type.substring(5);
 	if (type in lib) {
 		return lib[type];
@@ -159,3 +92,26 @@ function getFilterFunction(type) {
 		throw 'Library does not support Filter Type: ' + type;
 	}
 }
+
+export const getFilteredImage = (img, type) => {
+	const filterFunction = getFilterFunction(type);
+	const canvas = document.createElement('canvas');
+	const w = img.naturalWidth, h = img.naturalHeight;
+	canvas.setAttribute('width', w);
+	canvas.setAttribute('height', h);
+	const ctx = canvas.getContext('2d');
+	ctx.drawImage(img, 0, 0);
+	const pixels = ctx.getImageData(0, 0, w, h);
+
+	for (	let i = 0; i < pixels.data.length; i += 3) {
+		const rgb = [pixels.data[i], pixels.data[i + 1], pixels.data[i + 2]];
+		const filteredRGB = filterFunction(rgb);
+		pixels.data[i] = filteredRGB[0];
+		pixels.data[i + 1] = filteredRGB[1];
+		pixels.data[i + 2] = filteredRGB[2];
+	}
+	ctx.putImageData(pixels, 0, 0);
+	const url = canvas.toDataURL();
+	return url
+}
+

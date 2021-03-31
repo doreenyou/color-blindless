@@ -29,6 +29,9 @@
     "resources/**/*.js"
   ],
   "dependencies": {
+    "antd": "^4.15.0",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
     "sketch-module-web-view": "^3.1.4"
   },
   "__npminstall_done": false

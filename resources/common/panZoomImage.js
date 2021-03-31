@@ -1,5 +1,5 @@
 // Inspired by http://phrogz.net/tmp/canvas_zoom_to_cursor.html
-panZoomImage = {
+const panZoomImage = {
 	canvas: null,
 	scale: null
 };
@@ -27,3 +27,5 @@ panZoomImage.redraw = function redraw() {
 		this.ctx.drawImage(this.currentImage, 0, 0, this.currentImage.width * this.scale, this.currentImage.height * this.scale);
 	}
 };
+
+export default panZoomImage

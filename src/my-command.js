@@ -15,7 +15,7 @@ export default function () {
 
   const browserWindow = new BrowserWindow(options)
 
-  browserWindow.loadURL(require('../resources/webview.html'))
+  browserWindow.loadURL(require('../resources/index.html'))
 
   // only show the window when the page has loaded to avoid a white flash
   browserWindow.once('ready-to-show', () => {
