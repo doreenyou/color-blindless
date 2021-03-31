@@ -8,8 +8,8 @@ const webviewIdentifier = 'template-webview.webview'
 export default function () {
   const options = {
     identifier: webviewIdentifier,
-    width: 1500,
-    height: 1500,
+    width: 800,
+    height: 500,
     show: false
   }
 
