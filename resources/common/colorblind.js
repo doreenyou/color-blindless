@@ -103,7 +103,7 @@ export const getFilteredImage = (img, type) => {
 	ctx.drawImage(img, 0, 0);
 	const pixels = ctx.getImageData(0, 0, w, h);
 
-	for (	let i = 0; i < pixels.data.length; i += 3) {
+	for (let i = 0; i < pixels.data.length; i += 4) {
 		const rgb = [pixels.data[i], pixels.data[i + 1], pixels.data[i + 2]];
 		const filteredRGB = filterFunction(rgb);
 		pixels.data[i] = filteredRGB[0];
