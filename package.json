@@ -16,8 +16,7 @@
   "scripts": {
     "build": "skpm-build",
     "watch": "skpm-build --watch",
-    "start": "skpm-build --watch",
-    "postinstall": "npm run build"
+    "start": "skpm-build --watch"
   },
   "devDependencies": {
     "@skpm/builder": "^0.7.4",
