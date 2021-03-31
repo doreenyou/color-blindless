@@ -1,3 +1,20 @@
 .container {
   display: flex;
 }
+
+.container table {
+  background-color: aliceblue;
+}
+
+.container table td {
+  border: none;
+  font-size: 20px;
+  overflow: hidden;
+  padding: 10px 5px;
+}
+
+.container table th {
+  border: none;
+  overflow: hidden;
+  padding: 10px 5px;
+}
