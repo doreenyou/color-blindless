@@ -3,8 +3,8 @@
   "bundleVersion": 1,
   "commands": [
     {
-      "name": "色盲模式",
-      "identifier": "color-blindness.my-command-identifier",
+      "name": "Preview",
+      "identifier": "color-blindless.my-command-identifier",
       "script": "./my-command.js",
       "handlers": {
         "run": "onRun",
@@ -15,7 +15,7 @@
     }
   ],
   "menu": {
-    "title": "color-blindness",
-    "items": ["color-blindness.my-command-identifier"]
+    "title": "Color Blindless",
+    "items": ["color-blindless.my-command-identifier"]
   }
 }

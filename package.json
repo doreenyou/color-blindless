@@ -1,13 +1,13 @@
 {
-  "name": "skecth-color-blindness-plugin",
-  "version": "0.1.0",
+  "name": "color-blindless",
+  "version": "1.0.0",
   "engines": {
     "sketch": ">=3.0"
   },
   "skpm": {
-    "name": "skecth-colorBlindness-plugin",
+    "name": "color-blindless",
     "manifest": "src/manifest.json",
-    "main": "skecth-colorBlindness-plugin.sketchplugin",
+    "main": "color-blindless.sketchplugin",
     "assets": [
       "assets/**/*"
     ],
@@ -28,6 +28,10 @@
   "resources": [
     "resources/**/*.js"
   ],
+  "repository": {
+    "url": "https://github.com/doreenyou/color-blindless"
+  },
+  "description": "Color Blindness Simulator",
   "dependencies": {
     "antd": "^4.15.0",
     "react": "^16.13.0",

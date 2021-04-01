@@ -1,0 +1,28 @@
+{
+  "compatibleVersion": 3,
+  "bundleVersion": 1,
+  "commands": [
+    {
+      "name": "Preview",
+      "identifier": "color-blindless.my-command-identifier",
+      "script": "__my-command.js",
+      "handlers": {
+        "run": "onRun",
+        "actions": {
+          "Shutdown": "onShutdown"
+        }
+      }
+    }
+  ],
+  "menu": {
+    "title": "Color Blindless",
+    "items": [
+      "color-blindless.my-command-identifier"
+    ]
+  },
+  "version": "0.1.0",
+  "name": "color-blindless",
+  "identifier": "color-blindless",
+  "disableCocoaScriptPreprocessor": true,
+  "appcast": "https://raw.githubusercontent.com//master/.appcast.xml"
+}
