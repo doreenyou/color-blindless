@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { getFilteredImage } from '../common/colorblind';
 import { Table } from 'antd';
 import 'antd/dist/antd.css';
-import './style.css';
+import './index.css';
 
 // 可以使用 antd
 // import { Select, Radio } from 'antd';
