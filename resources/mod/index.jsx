@@ -9,7 +9,7 @@ import './index.css';
 
 const APP = (props) => {
   const imgElementRef = useRef(null);
-  const types = ['Normal','Protanopia','Protanomaly','Deuteranopia','Deuteranomaly','Tritanopia ','Tritanomaly','Achromatopsia','Achromatomaly'];
+  const types = ['Normal','Protanopia','Protanomaly','Deuteranopia','Deuteranomaly','Tritanopia','Tritanomaly','Achromatopsia','Achromatomaly'];
   const typesCN = ['原图','红色色盲','红色色弱','绿色色盲','绿色色弱','蓝色色盲','蓝色色弱','全色盲','蓝椎体细胞色盲'];
   const [originImg, setOriginImg] = useState(null);
   const [colorBlindnessImgs, setColorBlindnessImgs] = useState({});

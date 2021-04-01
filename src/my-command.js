@@ -13,7 +13,7 @@ export default function () {
     show: false
   }
 
-  const browser·Window = new BrowserWindow(options)
+  const browserWindow = new BrowserWindow(options)
 
   browserWindow.loadURL(require('../resources/index.html'))
 
