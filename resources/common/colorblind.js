@@ -102,12 +102,22 @@ export const getFilteredImage = (img, type, containerWidth) => {
 	if (scale > 1) {
 		scale = 1;
 	}
-	canvas.setAttribute('width', w*scale);
-	canvas.setAttribute('height', h*scale);
-	const ctx = canvas.getContext('2d');
-	ctx.drawImage(img, 0, 0, w*scale, h*scale);
+
+	// 要设置 canvas 的画布大小，使用的是canvas.width和 canvas.height；
+  // 要设置画布的实际渲染大小，使用的 style 属性或 CSS 设置的 width 和height，只是简单的对画布进行缩放。
+	// <canvas width="640" height="800" style="width:320px; height:400px"></canvas>
+	const ratio = window.devicePixelRatio;
 	
-	const pixels = ctx.getImageData(0, 0, w*scale, h*scale);
+	canvas.style.width = w * scale;
+	canvas.style.height = h * scale;
+ 
+	canvas.width = w * scale * ratio;
+	canvas.height = h * scale * ratio;
+
+	const ctx = canvas.getContext('2d');
+	ctx.drawImage(img, 0, 0, w * scale * ratio, h * scale * ratio);
+	
+	const pixels = ctx.getImageData(0, 0,  w * scale * ratio, h * scale * ratio);
 
 	for (let i = 0; i < pixels.data.length; i += 4) {
 		const rgb = [pixels.data[i], pixels.data[i + 1], pixels.data[i + 2]];
