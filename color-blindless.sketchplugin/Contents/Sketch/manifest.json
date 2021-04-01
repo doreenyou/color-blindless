@@ -20,7 +20,7 @@
       "color-blindless.my-command-identifier"
     ]
   },
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Color Blindness Simulator",
   "name": "color-blindless",
   "identifier": "color-blindless",
