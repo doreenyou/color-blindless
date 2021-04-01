@@ -93,15 +93,21 @@ function getFilterFunction(type) {
 	}
 }
 
-export const getFilteredImage = (img, type) => {
+export const getFilteredImage = (img, type, containerWidth) => {
 	const filterFunction = getFilterFunction(type);
 	const canvas = document.createElement('canvas');
 	const w = img.naturalWidth, h = img.naturalHeight;
-	canvas.setAttribute('width', w);
-	canvas.setAttribute('height', h);
+	
+	const scale = containerWidth / w;
+	if (scale > 1) {
+		scale = 1;
+	}
+	canvas.setAttribute('width', w*scale);
+	canvas.setAttribute('height', h*scale);
 	const ctx = canvas.getContext('2d');
-	ctx.drawImage(img, 0, 0);
-	const pixels = ctx.getImageData(0, 0, w, h);
+	ctx.drawImage(img, 0, 0, w*scale, h*scale);
+	
+	const pixels = ctx.getImageData(0, 0, w*scale, h*scale);
 
 	for (let i = 0; i < pixels.data.length; i += 4) {
 		const rgb = [pixels.data[i], pixels.data[i + 1], pixels.data[i + 2]];

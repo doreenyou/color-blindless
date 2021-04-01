@@ -21,12 +21,13 @@ module.exports = function (config, entry) {
   })
   config.module.rules.push({
     test: /\.(css)$/,
-    use: [{
-        loader: "@skpm/extract-loader",
+    use: [
+      {
+        loader: "style-loader",
       },
       {
         loader: "css-loader",
-      },
+      }
     ]
   })
   config.module.rules.push({

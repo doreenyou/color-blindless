@@ -1,17 +1,54 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { getFilteredImage } from '../common/colorblind';
-import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
+import { Table } from 'antd';
+import 'antd/dist/antd.css';
+import './style.css';
+
 // 可以使用 antd
 // import { Select, Radio } from 'antd';
 
 const APP = (props) => {
+  const imgElementRef = useRef(null);
   const types = ['Normal','Protanopia','Protanomaly','Deuteranopia','Deuteranomaly','Tritanopia','Tritanomaly','Achromatopsia','Achromatomaly'];
   const [originImg, setOriginImg] = useState(null);
   const [colorBlindnessImgs, setColorBlindnessImgs] = useState({});
 
+  const columns = types.map(type => {
+    return {
+      key: type,
+      title: type,
+      dataIndex: type,
+      render: (type) => <img src={type} width="100%" alt="" ref={imgElementRef}/> 
+    }
+  })
+
   useEffect(() => {
     window.postMessage('colorBlindness', '');
   }, [])
+
+  useEffect(() => {
+
+    const debounce = (fn) => {
+      let timer;
+      return function(){
+        if(timer){
+            clearTimeout(timer);
+        }
+        timer = setTimeout(fn, 200);
+      }
+    }
+
+    const handleResize = debounce(() => {
+      const containerWidth = imgElementRef.current.clientWidth;
+      draw(originImg, containerWidth);
+    })
+
+    window.addEventListener('resize', handleResize, false);
+
+    return () => { // useEffect卸载时解绑
+      window.removeEventListener('resize', handleResize);
+    }
+  }, [originImg])
 
   // getPreviewImage must mount to window, because plugin will call getPreviewImage function
   window.getPreviewImage = (image) => {
@@ -22,11 +59,11 @@ const APP = (props) => {
       img.src = image;
   }
 
-  function draw(currentImage) {
+  function draw(originImg, containerWidth = 150) {
     types.map(type => {
       const filterName = "simpl" + type;
-      if (currentImage) {
-        const imgUrl = getFilteredImage(currentImage, filterName );
+      if (originImg) {
+        const imgUrl = getFilteredImage(originImg, filterName, containerWidth);
         colorBlindnessImgs[type] = imgUrl;
         setColorBlindnessImgs(Object.assign({}, colorBlindnessImgs));
       }
@@ -39,30 +76,7 @@ const APP = (props) => {
   }, [originImg])
   
   return (
-   
-    <div className = 'container'>
-      <Table>
-        <thead>
-          <tr>
-            { 
-              types.map((type, index) => {
-                return <Th key={index}>{type}</Th>
-              })
-            }
-          </tr>
-        </thead>
-        <Tbody>
-          <Tr>
-            { 
-              types.map((type, index) => {
-                return <Td key={index}>{colorBlindnessImgs[type] && <img src={colorBlindnessImgs[type]} /> }</Td>
-              })
-            }
-          </Tr>
-        </Tbody>
-      </Table>
-      </div>
-  
+    <Table columns={columns} dataSource = {[colorBlindnessImgs]} pagination={false} />  
   )
 }
 
