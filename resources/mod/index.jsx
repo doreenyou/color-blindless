@@ -17,7 +17,7 @@ const APP = (props) => {
   const columns = types.map((type, index) => {
     return {
       key: type,
-      title: type + ' ' + typesCN[index],
+      title: type + '\n' + typesCN[index],
       dataIndex: type,
       render: (type) => <img src={type} width="100%" alt="" ref={imgElementRef}/> 
     }

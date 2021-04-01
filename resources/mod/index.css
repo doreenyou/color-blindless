@@ -1,3 +1,7 @@
 .ant-table-thead > tr > th {
   min-width: 150px;
 }
+
+.ant-table-thead{
+  table-layout: fixed;
+}
