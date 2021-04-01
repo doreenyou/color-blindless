@@ -20,9 +20,10 @@
       "color-blindless.my-command-identifier"
     ]
   },
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "description": "Color Blindness Simulator",
   "name": "color-blindless",
   "identifier": "color-blindless",
   "disableCocoaScriptPreprocessor": true,
-  "appcast": "https://raw.githubusercontent.com//master/.appcast.xml"
+  "appcast": "https://raw.githubusercontent.com/doreenyou/color-blindless/master/.appcast.xml"
 }
