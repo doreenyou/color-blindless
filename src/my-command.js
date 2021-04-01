@@ -8,12 +8,12 @@ const webviewIdentifier = 'template-webview.webview'
 export default function () {
   const options = {
     identifier: webviewIdentifier,
-    width: 800,
+    width: 1000,
     height: 500,
     show: false
   }
 
-  const browserWindow = new BrowserWindow(options)
+  const browser·Window = new BrowserWindow(options)
 
   browserWindow.loadURL(require('../resources/index.html'))
 
