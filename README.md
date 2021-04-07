@@ -3,7 +3,7 @@
 Color Blindless is a Sketch plugin that can simulate your design in different types of color blindness. It's adapted from [jsColorBlindnessSimulator](http://mapeper.github.io/jsColorblindSimulator/)
 
 ## Installation
-- [Download](../releases/latest) the latest release of the plugin
+- [Download](https://github.com/doreenyou/color-blindless/releases/latest) the latest release of the plugin
 - Un-zip
 - Double-click to install
 
